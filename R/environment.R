@@ -270,7 +270,6 @@ generate_docker_file <- function(custom_docker_image = NULL,
       )
     }
   }
-  print(base_dockerfile)
 
   if (!is.null(cran_packages)) {
     for (package in cran_packages) {
