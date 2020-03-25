@@ -126,8 +126,7 @@ r_environment <- function(name, version = NULL,
                                                        cran_packages,
                                                        github_packages,
                                                        custom_url_packages,
-                                                       custom_docker_steps,
-                                                       custom_docker_image)
+                                                       custom_docker_steps)
     env$docker$base_image <- NULL
   }
   else {
@@ -148,7 +147,6 @@ r_environment <- function(name, version = NULL,
         github_packages,
         custom_url_packages,
         custom_docker_steps,
-        custom_docker_image,
         FALSE)
       env$docker$base_image <- NULL
     }
