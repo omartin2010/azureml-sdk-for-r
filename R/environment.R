@@ -26,8 +26,9 @@
 #' which the image to use for training or deployment will be built. If not set,
 #' a predefined Docker image will be used. To use an image from a private Docker
 #' repository, you will also have to specify the `image_registry_details` parameter.
-#' @param custom_docker_steps A string representing docker steps to add to the
-#' building of the container. This parameter is optional'
+#' @param custom_docker_steps A charactor vector of docker steps to be added to the 
+#' building of the container. This parameter is optional. The vector would look like
+#' c("RUN apt ...", "RUN..".).
 #' @param image_registry_details A `ContainerRegistry` object of the details of
 #' the Docker image registry for the custom Docker image.
 #' @param use_gpu Indicates whether the environment should support GPUs.

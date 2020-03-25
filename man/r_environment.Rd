@@ -30,6 +30,10 @@ which the image to use for training or deployment will be built. If not set,
 a predefined Docker image will be used. To use an image from a private Docker
 repository, you will also have to specify the \code{image_registry_details} parameter.}
 
+\item{custom_docker_steps}{A charactor vector of docker steps to be added to the building
+of the container. This parameter is optional. The vector would look like
+c("RUN apt ...", "RUN..".)}
+
 \item{image_registry_details}{A \code{ContainerRegistry} object of the details of
 the Docker image registry for the custom Docker image.}
 
