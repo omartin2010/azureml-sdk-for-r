@@ -248,7 +248,7 @@ generate_docker_file <- function(custom_docker_image = NULL,
   base_dockerfile <- paste0(base_dockerfile, sprintf("FROM %s\n",
                                                      custom_docker_image))
 
-  if (custom_docker_steps) {
+  if (!is.null(custom_docker_steps)) {
     base_dockerfile <- paste0(base_dockerfile,
                               custom_docker_steps, "\n")
   }
