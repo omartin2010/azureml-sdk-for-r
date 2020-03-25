@@ -102,8 +102,6 @@ r_environment <- function(name, version = NULL,
   env$docker$enabled <- TRUE
   env$docker$base_image <- custom_docker_image
 
-  print(paste0("custom steps = (from r_environment)", custom_docker_steps))
-
   if (!is.null(image_registry_details)) {
     env$docker$base_image_registry <- image_registry_details
   }
@@ -264,10 +262,10 @@ generate_docker_file <- function(custom_docker_image = NULL,
                               "upgrade = FALSE)\"\n")
   }
 
-  print(paste0("steps = ", custom_docker_steps))
   if (!is.null(custom_docker_steps)) {
     for (step in custom_docker_steps) {
       base_dockerfile <- paste0(
+        base_dockerfile,
         step, "\n"
       )
     }
