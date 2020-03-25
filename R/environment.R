@@ -248,10 +248,6 @@ generate_docker_file <- function(custom_docker_image = NULL,
   base_dockerfile <- paste0(base_dockerfile, sprintf("FROM %s\n",
                                                      custom_docker_image))
 
-  if (!is.null(custom_docker_steps)) {
-    base_dockerfile <- paste0(base_dockerfile,
-                              custom_docker_steps, "\n")
-  }
   if (install_system_packages) {
     base_dockerfile <- paste0(base_dockerfile,
                               "RUN conda install -c r -y r-essentials=3.6.0 ",
@@ -266,6 +262,12 @@ generate_docker_file <- function(custom_docker_image = NULL,
                               "upgrade = FALSE)\"\n")
   }
 
+  if (!is.null(custom_docker_steps) {
+    base_dockerfile <- paste0(
+      base_dockerfile,
+      custom_docker_steps, "\n")
+  }
+  
   if (!is.null(cran_packages)) {
     for (package in cran_packages) {
       base_dockerfile <- paste0(
