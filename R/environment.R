@@ -234,8 +234,9 @@ container_registry <- function(address = NULL,
 #' @param github_packages character vector of github packages to be installed.
 #' @param custom_url_packages character vector of packages to be installed from
 #' local, directory or custom url.
-#' @param custom_docker_steps A string representing docker steps to add to the
-#' building of the container. This parameter is optional'
+#' @param custom_docker_steps A charactor vector of docker steps to be added to the 
+#' building of the container. This parameter is optional. The vector would look like
+#' c("RUN apt ...", "RUN..".).
 #' @param install_system_packages logical parameter to specify if system
 #' packages should be installed at runtime.
 #' @return Dockerfile string
