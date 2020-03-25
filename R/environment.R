@@ -263,10 +263,13 @@ generate_docker_file <- function(custom_docker_image = NULL,
   }
 
   if (!is.null(custom_docker_steps)) {
-    base_dockerfile <- paste0(
-      base_dockerfile,
-      custom_docker_steps, "\n")
+    for (step in custom_docker_steps) {
+      base_dockerfile <- paste0(
+        step, "\n"
+      )
+    }
   }
+  print(base_dockerfile)
   
   if (!is.null(cran_packages)) {
     for (package in cran_packages) {
