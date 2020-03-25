@@ -26,6 +26,8 @@
 #' which the image to use for training or deployment will be built. If not set,
 #' a predefined Docker image will be used. To use an image from a private Docker
 #' repository, you will also have to specify the `image_registry_details` parameter.
+#' @param custom_docker_steps A string representing docker steps to add to the
+#' building of the container. This parameter is optional'
 #' @param image_registry_details A `ContainerRegistry` object of the details of
 #' the Docker image registry for the custom Docker image.
 #' @param use_gpu Indicates whether the environment should support GPUs.
@@ -89,6 +91,7 @@ r_environment <- function(name, version = NULL,
                           github_packages = NULL,
                           custom_url_packages = NULL,
                           custom_docker_image = NULL,
+                          custom_docker_steps = NULL,
                           image_registry_details = NULL,
                           use_gpu = FALSE,
                           shm_size = NULL) {
@@ -120,7 +123,8 @@ r_environment <- function(name, version = NULL,
     env$docker$base_dockerfile <- generate_docker_file(base_image_with_address,
                                                        cran_packages,
                                                        github_packages,
-                                                       custom_url_packages)
+                                                       custom_url_packages,
+                                                       custom_docker_image)
     env$docker$base_image <- NULL
   }
   else {
@@ -140,6 +144,7 @@ r_environment <- function(name, version = NULL,
         cran_packages,
         github_packages,
         custom_url_packages,
+        custom_docker_image,
         FALSE)
       env$docker$base_image <- NULL
     }
@@ -228,6 +233,8 @@ container_registry <- function(address = NULL,
 #' @param github_packages character vector of github packages to be installed.
 #' @param custom_url_packages character vector of packages to be installed from
 #' local, directory or custom url.
+#' @param custom_docker_steps A string representing docker steps to add to the
+#' building of the container. This parameter is optional'
 #' @param install_system_packages logical parameter to specify if system
 #' packages should be installed at runtime.
 #' @return Dockerfile string
@@ -235,11 +242,16 @@ generate_docker_file <- function(custom_docker_image = NULL,
                                  cran_packages = NULL,
                                  github_packages = NULL,
                                  custom_url_packages = NULL,
+                                 custom_docker_steps = NULL,
                                  install_system_packages = TRUE) {
   base_dockerfile <- NULL
   base_dockerfile <- paste0(base_dockerfile, sprintf("FROM %s\n",
                                                      custom_docker_image))
 
+  if (custom_docker_steps) {
+    base_dockerfile <- paste0(base_dockerfile,
+                              custom_docker_steps, "\n")
+  }
   if (install_system_packages) {
     base_dockerfile <- paste0(base_dockerfile,
                               "RUN conda install -c r -y r-essentials=3.6.0 ",
