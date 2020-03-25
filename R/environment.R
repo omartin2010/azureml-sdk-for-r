@@ -102,6 +102,8 @@ r_environment <- function(name, version = NULL,
   env$docker$enabled <- TRUE
   env$docker$base_image <- custom_docker_image
 
+  print(paste0("custom steps = (from r_environment)", custom_docker_steps))
+
   if (!is.null(image_registry_details)) {
     env$docker$base_image_registry <- image_registry_details
   }
